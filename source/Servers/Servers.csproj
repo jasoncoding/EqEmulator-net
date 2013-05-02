@@ -1,0 +1,191 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{297259A9-AA56-43C6-807C-6F6A8C81D904}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>EQEmulator.Servers</RootNamespace>
+    <AssemblyName>EQEmulator.Servers</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>..\packages\ICSharpCode.SharpZipLib.dll.0.85.4.369\lib\net20\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\packages\log4net.2.0.0\lib\net35-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.ServiceModel">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="EQServer.cs" />
+    <Compile Include="ExtensionMethods\StringExtensions.cs" />
+    <Compile Include="Internals\ClientAuth.cs" />
+    <Compile Include="Internals\CommandProcessing.cs" />
+    <Compile Include="Internals\Data\Door.cs" />
+    <Compile Include="Internals\Data\InventoryItem.cs" />
+    <Compile Include="Internals\Data\Spell.cs" />
+    <Compile Include="Internals\Entities\Corpse.cs" />
+    <Compile Include="Internals\Entities\HateManager.cs" />
+    <Compile Include="Internals\Entities\InventoryManager.cs" />
+    <Compile Include="Internals\Data\Item.cs" />
+    <Compile Include="Internals\Data\Spawn.cs" />
+    <Compile Include="Internals\Data\SpawnGroup.cs" />
+    <Compile Include="Internals\Entities\Entity.cs" />
+    <Compile Include="Internals\Entities\LootItem.cs" />
+    <Compile Include="Internals\Entities\Mob.cs" />
+    <Compile Include="Internals\Entities\MobAI.cs" />
+    <Compile Include="Internals\Entities\MobSpells.cs" />
+    <Compile Include="Internals\Entities\NpcMob.cs" />
+    <Compile Include="Internals\Entities\PlayerCorpse.cs" />
+    <Compile Include="Internals\Log4NetWriter.cs" />
+    <Compile Include="Internals\MapBase.cs" />
+    <Compile Include="Internals\Data\Character.cs" />
+    <Compile Include="Internals\Client.cs" />
+    <Compile Include="Internals\CRC.cs" />
+    <Compile Include="Internals\Data\DataClasses.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataClasses.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="Internals\Data\ServerConfig.cs" />
+    <Compile Include="Internals\Data\Zone.cs" />
+    <Compile Include="Internals\Guild.cs" />
+    <Compile Include="Internals\Map.cs" />
+    <Compile Include="Internals\Messaging.cs" />
+    <Compile Include="Internals\MobManager.cs" />
+    <Compile Include="Internals\Packets\BasePacket.cs" />
+    <Compile Include="Internals\Packets\EQApplicationPacket.cs" />
+    <Compile Include="Internals\Packets\EQRawApplicationPacket.cs" />
+    <Compile Include="Internals\Packets\EQPacket.cs" />
+    <Compile Include="Internals\Packets\PacketStructs.cs" />
+    <Compile Include="Internals\Packets\RawEQPacket.cs" />
+    <Compile Include="Internals\SimpleTimer.cs" />
+    <Compile Include="Internals\Tribute.cs" />
+    <Compile Include="Internals\WorldPlayer.cs" />
+    <Compile Include="Internals\Races.cs" />
+    <Compile Include="Internals\Utility.cs" />
+    <Compile Include="Internals\WaterMap.cs" />
+    <Compile Include="Internals\ZonePlayer.cs" />
+    <Compile Include="Internals\ZonePlayerSpells.cs" />
+    <Compile Include="Internals\ZoneProcess.cs" />
+    <Compile Include="ServerTalk\IZoneService.cs" />
+    <Compile Include="ServerTalk\ILoginService.cs" />
+    <Compile Include="ServerTalk\IWorldService.cs" />
+    <Compile Include="LoginServer.cs" />
+    <Compile Include="OpCodes.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="ServerTalk\WorldMessages.cs" />
+    <Compile Include="Service References\WorldService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="UDPServer.cs" />
+    <Compile Include="WorldServer.cs" />
+    <Compile Include="WorldServerIWorldService.cs" />
+    <Compile Include="ZoneServer.cs" />
+    <Compile Include="ZoneServerCommandHandlers.cs" />
+    <Compile Include="ZoneServerIZoneService.cs" />
+    <Compile Include="ZoneServerPacketHandlers.cs" />
+    <Compile Include="ZoneServerSends.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\WorldService\service.wsdl" />
+    <None Include="Service References\WorldService\service.xsd" />
+    <None Include="Service References\WorldService\service1.xsd" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\WorldService\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\WorldService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Internals\Data\DataClasses.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>DataClasses.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\WorldService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Internals\Data\DataClasses.dbml.layout">
+      <DependentUpon>DataClasses.dbml</DependentUpon>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

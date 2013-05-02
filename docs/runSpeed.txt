@@ -1,0 +1,54 @@
+from http://everquest.allakhazam.com/db/item.html?item=1721;page=1;howmany=50#m10822246245352
+
+AAS
+10% - Run 1
+20% - Run 2
+30% - Run 3
+40% - Run 4 (Swift Journey)
+50% - Run 5 (Swift Journey)
+
+MOUNTS
+25% - Horse (ghostly bridle)/(bridle of Sir Ariam)
+25% - Horse (rope bridle)/Drogmor (small drum)
+50% - Horse (leather bridle)/Drogmor (drum)
+60% - Horse (silken bridle)/Drogmor (large drum)
+70% - Horse (chain bridle)/Drogmor (giant drum)
+85% - Horse (ornate chain bridle)/Drogmor (glowing drum)
+95% - Holy Steed (Paladin AA horse)/Unholy Steed (Shadowknight AA horse)
+
+ITEMS
+35% - Traveler's Boots
+35% - Journeyman's Boots
+50% - Fabled Journeyman's Boots
+
+SPELLS
+30% - Spirit of the Shrew (Shaman 29/Druid 34/Beastlord 39/Ranger 44)
+30% - Pack Shrew (Shaman 34/Druid 39/Beastlord 44/Ranger 49)
+34%(lvl 9) -55%(lvl 50) - Spirit of Wolf (Shaman 9/Druid 14/Beastlord 30/Ranger 30)
+49%(lvl 39)-55%(lvl 50) - Pack Spirit (Druid 39)
+49%(lvl 39)-55%(lvl 50) - Spirit of Bih'Li (Shaman 39)
+57%(lvl 54)-60%(lvl 60) - Spirit of Eagle (Druid 54/Ranger 65)
+65% - Flight of Eagles (Druid 62)
+57%(lvl 24)-70%(lvl 50) - Scale of Wolf (Shaman 24/Druid 29)
+70% - Spirit of Scale (Shaman 52/Druid 53)
+99%(lvl 24)-115%(lvl 40) - Spirit of Cheetah (Shaman 24/Druid 24)
+
+ILLUSION SPELLS:SELF ONLY
+40% - Feral Form (Ranger 64)
+42%(lvl 44)-45%(lvl 50) - Illusion: Scaled Wolf (Enchanter 44)
+42%(lvl 24)-55%(lvl 50) - Wolf Form (Druid 24/Ranger 49)
+52%(lvl 34)-60%(lvl 50) - Greater Wolf Form (Druid 34/Ranger 56)
+57%(lvl 44)-60%(lvl 50) - Form of the Great Wolf (Druid 44)
+62%(lvl 54)-67%(lvl 65) - Form of the Howler (Druid 54)
+70%(lvl 60)-72%(lvl 65) - Form of the Hunter (Druid 60)
+
+ILLUSION SPELLS:GROUP
+30% - Feral Pack (Druid 52)
+49%(lvl 39)-60%(lvl 60) - Share Wolf Form (Druid 39)
+59%(lvl 49)-62%(lvl 54) - Share Form of the Great Wolf (Druid 49)
+
+SONGS (instruments not factored in)
+10% - Selo's Rhythm of Speed (Bard 25)
+20%(lvl 5)-65%(lvl 50) - Selo's Accelerando (Bard 5)
+64%(lvl49)-65%(lvl 50) - Selo's Accelerating Chorus (Bard 49)
+65% - Selo's Song of Travel - (Bard 51)

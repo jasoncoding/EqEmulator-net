@@ -1,0 +1,862 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database Name="EQEmulator" Class="EmuDataContext" AccessModifier="Internal" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=HOWLER;Initial Catalog=EQEmulator;Integrated Security=True" SettingsObjectName="EQEmulator.Servers.Properties.Settings" SettingsPropertyName="EQEmulatorConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.LoginAccount" Member="LoginAccounts" AccessModifier="Internal">
+    <Type Name="LoginAccount" AccessModifier="Internal">
+      <Column Name="LoginAccountID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Password" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="IPAddress" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="LastLoginDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="CreationDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.WorldServer" Member="WorldServers">
+    <Type Name="WorldServer">
+      <Column Name="WorldConfigID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="LongName" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="ShortName" Type="System.String" DbType="VarChar(32) NOT NULL" CanBeNull="false" />
+      <Column Name="MaxClientsAllowed" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="ServerType" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="IPAddress" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Account" Member="Accounts" AccessModifier="Internal">
+    <Type Name="Account" AccessModifier="Internal">
+      <Column Name="AccountID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="CharName" Type="System.String" DbType="VarChar(64)" CanBeNull="true" />
+      <Column Name="Password" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Status" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="LSAccountID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="GMSpeed" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Revoked" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IPAddress" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="HideMe" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="Account_Character" Member="Characters" ThisKey="AccountID" OtherKey="AccountID" Type="Character" />
+    </Type>
+  </Table>
+  <Table Name="dbo.NameFilter" Member="NameFilters">
+    <Type Name="NameFilter">
+      <Column Name="NameFilterID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Filter" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.CharacterBind" Member="CharacterBinds" AccessModifier="Internal">
+    <Type Name="CharacterBind" AccessModifier="Internal">
+      <Column Name="CharacterBindID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CharacterID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ZoneID" Type="System.UInt16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="X" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="Y" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="Z" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="Heading" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Association Name="Zone_CharacterBind" Member="Zone" ThisKey="ZoneID" OtherKey="ZoneID" Type="Zone" IsForeignKey="true" />
+      <Association Name="Character_CharacterBind" Member="Character" ThisKey="CharacterID" OtherKey="CharacterID" Type="Character" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Zone" Member="Zones" AccessModifier="Internal">
+    <Type Name="Zone" AccessModifier="Internal">
+      <Column Name="ZoneID" Type="System.UInt16" DbType="SmallInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ShortName" Type="System.String" DbType="VarChar(16) NOT NULL" CanBeNull="false" />
+      <Column Name="LongName" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="SafeX" Type="System.Single" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="SafeY" Type="System.Single" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="SafeZ" Type="System.Single" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="MinLevel" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="MinStatus" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="MaxClients" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="Weather" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="UnderWorld" Type="System.Single" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="MinClip" Type="System.Single" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="MaxClip" Type="System.Single" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="FogMinClip" Type="System.Single" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="FogMaxClip" Type="System.Single" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="FogBlue" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="FogRed" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="FogGreen" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Sky" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="ZType" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="XPMultiplier" Type="System.Single" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="WalkSpeed" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="TimeType" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="FogRed1" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="FogGreen1" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="FogBlue1" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="FogMinClip1" Type="System.Single" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="FogMaxClip1" Type="System.Single" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="FogRed2" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="FogGreen2" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="FogBlue2" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="FogMinClip2" Type="System.Single" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="FogMaxClip2" Type="System.Single" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="FogRed3" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="FogGreen3" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="FogBlue3" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="FogMinClip3" Type="System.Single" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="FogMaxClip3" Type="System.Single" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="FogRed4" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="FogGreen4" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="FogBlue4" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="FogMinClip4" Type="System.Single" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="FogMaxClip4" Type="System.Single" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="FlagIDNeeded" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CanBind" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="CanCombat" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="CanLevitate" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="CanCastOutdoorSpells" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="CanBindOthers" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="Zone_CharacterBind" Member="CharacterBinds" ThisKey="ZoneID" OtherKey="ZoneID" Type="CharacterBind" />
+      <Association Name="Zone_ZonePoint" Member="ZonePoints" ThisKey="ZoneID" OtherKey="ZoneID" Type="ZonePoint" />
+      <Association Name="Zone_Spawn" Member="Spawns" ThisKey="ZoneID" OtherKey="ZoneID" Type="Spawn" />
+      <Association Name="Zone_Character" Member="Characters" ThisKey="ZoneID" OtherKey="ZoneID" Type="Character" />
+      <Association Name="Zone_Door" Member="Doors" ThisKey="ZoneID" OtherKey="ZoneID" Type="Door" />
+      <Association Name="Zone_StartZone" Member="StartZones" ThisKey="ZoneID" OtherKey="ZoneID" Type="StartZone" />
+      <Association Name="Zone_StartZone1" Member="StartZones1" ThisKey="ZoneID" OtherKey="BindZoneID" Type="StartZone" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ZonePoint" Member="ZonePoints" AccessModifier="Internal">
+    <Type Name="ZonePoint" AccessModifier="Internal">
+      <Column Name="ZonePointID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ZoneID" Type="System.UInt16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="Number" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="X" Type="System.Single" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="Y" Type="System.Single" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="Z" Type="System.Single" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="Heading" Type="System.Single" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="TargetX" Type="System.Single" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="TargetY" Type="System.Single" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="TargetZ" Type="System.Single" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="TargetHeading" Type="System.Single" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="ZoneInstance" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="TargetZoneID" Type="System.UInt16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Association Name="Zone_ZonePoint" Member="Zone" ThisKey="ZoneID" OtherKey="ZoneID" Type="Zone" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Spawn" Member="Spawns" AccessModifier="Internal">
+    <Type Name="Spawn" AccessModifier="Internal">
+      <Column Name="SpawnID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="SpawnGroupID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ZoneID" Type="System.UInt16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="X" Type="System.Single" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="Y" Type="System.Single" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="Z" Type="System.Single" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="Heading" Type="System.Single" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="RespawnTime" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Variance" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="PathGrid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TimeLeft" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Condition" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ConditionValue" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Zone_Spawn" Member="Zone" ThisKey="ZoneID" OtherKey="ZoneID" Type="Zone" IsForeignKey="true" />
+      <Association Name="SpawnGroup_Spawn" Member="SpawnGroup" ThisKey="SpawnGroupID" OtherKey="SpawnGroupID" Type="SpawnGroup" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SpawnGroup" Member="SpawnGroups" AccessModifier="Internal">
+    <Type Name="SpawnGroup" AccessModifier="Internal">
+      <Column Name="SpawnGroupID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="GroupName" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="SpawnLimit" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Association Name="SpawnGroup_Spawn" Member="Spawns" ThisKey="SpawnGroupID" OtherKey="SpawnGroupID" Type="Spawn" />
+      <Association Name="SpawnGroup_SpawnGroupEntry" Member="SpawnGroupEntries" ThisKey="SpawnGroupID" OtherKey="SpawnGroupID" Type="SpawnGroupEntry" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SpawnGroupEntry" Member="SpawnGroupEntries" AccessModifier="Internal">
+    <Type Name="SpawnGroupEntry" AccessModifier="Internal">
+      <Column Name="SpawnGroupID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="NpcID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Chance" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Association Name="SpawnGroup_SpawnGroupEntry" Member="SpawnGroup" ThisKey="SpawnGroupID" OtherKey="SpawnGroupID" Type="SpawnGroup" IsForeignKey="true" />
+      <Association Name="Npc_SpawnGroupEntry" Member="Npc" ThisKey="NpcID" OtherKey="NpcID" Type="Npc" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Npc" Member="Npcs" AccessModifier="Internal">
+    <Type Name="Npc" AccessModifier="Internal">
+      <Column Name="NpcID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="SurName" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="NpcLevel" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Race" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="NpcClass" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="BodyType" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="Hp" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Gender" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Texture" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="HelmTexture" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Size" Type="System.Single" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="HpRegenRate" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ManaRegenRate" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="LootId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="true" />
+      <Column Name="MerchantId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="NpcSpellsId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="NpcFactionId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="MinDamage" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="MaxDamage" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="NpcSpecialAttacks" Type="System.String" DbType="VarChar(36)" CanBeNull="true" />
+      <Column Name="AggroRadius" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Face" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="HairStyleLuclin" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="HairColorLuclin" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="EyeColorLuclin" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="EyeColor2Luclin" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BeardColorLuclin" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BeardLuclin" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="MeleeTexture1" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="MeleeTexture2" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="RunSpeed" Type="System.Single" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="MR" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="CR" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="DR" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="FR" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="PR" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="SeeInvis" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="SeeInvisUndead" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="SeeHide" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="SeeImprovedHide" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="QGlobal" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="AC" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="NpcAggro" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="SpawnLimit" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="AttackSpeed" Type="System.Single" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="Findable" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Trackable" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="STR" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="STA" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="DEX" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="AGI" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="INT" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="WIS" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="CHA" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="IsBot" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Attack" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="Accuracy" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Npc_SpawnGroupEntry" Member="SpawnGroupEntries" ThisKey="NpcID" OtherKey="NpcID" Type="SpawnGroupEntry" />
+      <Association Name="Loot_Npc" Member="Loot" ThisKey="LootId" OtherKey="LootID" Type="Loot" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Character" Member="Characters" AccessModifier="Internal">
+    <Type Name="Character" AccessModifier="Internal">
+      <Column Name="CharacterID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="AccountID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(64) NOT NULL" CanBeNull="false" />
+      <Column Name="Surname" Type="System.String" DbType="VarChar(64)" CanBeNull="true" />
+      <Column Name="Class" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="Race" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="Gender" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="CharLevel" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="XP" Type="System.UInt32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="STR" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="STA" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="AGI" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="DEX" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="WIS" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="INT" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="CHA" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="Deity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Face" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="EyeColor1" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="EyeColor2" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="HairStyle" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="HairColor" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="Beard" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="BeardColor" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="PracticePoints" Type="System.UInt32" DbType="Int" CanBeNull="true" />
+      <Column Name="HP" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Mana" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Endurance" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="HungerLevel" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ThirstLevel" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Languages" Type="System.String" DbType="Char(28)" CanBeNull="true" />
+      <Column Name="Skills" Type="System.String" DbType="Char(75)" CanBeNull="true" />
+      <Column Name="Title" Type="System.String" DbType="VarChar(32)" CanBeNull="true" />
+      <Column Name="Suffix" Type="System.String" DbType="VarChar(32)" CanBeNull="true" />
+      <Column Name="Platinum" Type="System.UInt32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Gold" Type="System.UInt32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Silver" Type="System.UInt32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Copper" Type="System.UInt32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BankedPlatinum" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BankedGold" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BankedSilver" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BankedCopper" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="X" Type="System.Single" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="Y" Type="System.Single" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="Z" Type="System.Single" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="Heading" Type="System.Single" DbType="Float" CanBeNull="true" />
+      <Column Name="ZoneName" Type="System.String" DbType="VarChar(40)" CanBeNull="true" />
+      <Column Name="ZoneID" Type="System.UInt16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="GMStatus" Storage="_IsGM" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="GroupID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="LastSeenDate" Storage="_LastLogOnDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CreatedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="Character_CharacterBind" Member="CharacterBinds" ThisKey="CharacterID" OtherKey="CharacterID" Type="CharacterBind" />
+      <Association Name="Character_InventoryItem" Member="InventoryItems" ThisKey="CharacterID" OtherKey="CharacterID" Type="InventoryItem" />
+      <Association Name="Character_MemorizedSpell" Member="MemorizedSpells" ThisKey="CharacterID" OtherKey="CharacterID" Type="MemorizedSpell" />
+      <Association Name="Character_ScribedSpell" Member="ScribedSpells" ThisKey="CharacterID" OtherKey="CharacterID" Type="ScribedSpell" />
+      <Association Name="Account_Character" Member="Account" ThisKey="AccountID" OtherKey="AccountID" Type="Account" IsForeignKey="true" />
+      <Association Name="Zone_Character" Member="Zone" ThisKey="ZoneID" OtherKey="ZoneID" Type="Zone" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Grid" Member="Grids">
+    <Type Name="Grid">
+      <Column Name="GridID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ZoneID" Type="System.Int16" DbType="SmallInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="WanderType" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="PauseType" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.GridEntries" Member="GridEntries">
+    <Type Name="GridEntry">
+      <Column Name="GridID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ZoneID" Type="System.Int16" DbType="SmallInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Ordinal" Type="System.Int16" DbType="SmallInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="X" Type="System.Single" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="Y" Type="System.Single" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="Z" Type="System.Single" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="Heading" Type="System.Single" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="Pause" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Door" Member="Doors" AccessModifier="Internal">
+    <Type Name="Door" AccessModifier="Internal">
+      <Column Name="DoorID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Ordinal" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="ZoneID" Type="System.UInt16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="DoorName" Type="System.String" DbType="VarChar(32) NOT NULL" CanBeNull="false" />
+      <Column Name="X" Type="System.Single" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="Y" Type="System.Single" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="Z" Type="System.Single" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="Heading" Type="System.Single" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="OpenType" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="GuildID" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="LockPick" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="KeyItemID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TriggerDoor" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="TriggerType" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="DoorParam" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DestZoneID" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="DestX" Type="System.Single" DbType="Float" CanBeNull="true" />
+      <Column Name="DestY" Type="System.Single" DbType="Float" CanBeNull="true" />
+      <Column Name="DestZ" Type="System.Single" DbType="Float" CanBeNull="true" />
+      <Column Name="DestHeading" Type="System.Single" DbType="Float" CanBeNull="true" />
+      <Column Name="InvertState" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Incline" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Size" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Association Name="Zone_Door" Member="Zone" ThisKey="ZoneID" OtherKey="ZoneID" Type="Zone" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.StartZone" Member="StartZones" AccessModifier="Internal">
+    <Type Name="StartZone" AccessModifier="Internal">
+      <Column Name="StartZoneID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="X" Type="System.Single" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="Y" Type="System.Single" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="Z" Type="System.Single" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="ZoneID" Type="System.UInt16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="BindZoneID" Type="System.UInt16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="BindX" Type="System.Single" DbType="Float" CanBeNull="true" />
+      <Column Name="BindY" Type="System.Single" DbType="Float" CanBeNull="true" />
+      <Column Name="BindZ" Type="System.Single" DbType="Float" CanBeNull="true" />
+      <Column Name="PlayerChoice" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="PlayerClass" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="PlayerDeity" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="PlayerRace" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Association Name="Zone_StartZone" Member="Zone" ThisKey="ZoneID" OtherKey="ZoneID" Type="Zone" IsForeignKey="true" />
+      <Association Name="Zone_StartZone1" Member="BindZone" ThisKey="BindZoneID" OtherKey="ZoneID" Type="Zone" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Items" Member="Items" AccessModifier="Internal">
+    <Type Name="Item" AccessModifier="Internal">
+      <Column Name="ItemID" AutoSync="Never" Type="System.UInt32" DbType="Int NOT NULL" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="MinStatus" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(64) NOT NULL" CanBeNull="false" />
+      <Column Name="ChaBonus" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="DexBonus" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="IntBonus" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="WisBonus" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="AgiBonus" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="StaBonus" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="StrBonus" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="AttackBonus" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="ACBonus" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="Accuracy" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="IsArtifact" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="AugRestrict" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="AugSlot1Type" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="AugSlot1Vis" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="AugSlot2Type" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="AugSlot2Vis" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="AugSlot3Type" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="AugSlot3Vis" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="AugSlot4Type" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="AugSlot4Vis" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="AugSlot5Type" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="AugSlot5Vis" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="AugType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Avoidance" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="BagSize" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="BagSlots" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="BagType" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="BagWeightReduc" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="BaneDmgBodyAmt" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="BaneDmgRaceAmt" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="BaneDmgBody" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="BaneDmgRace" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="BardType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BardValue" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Book" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="EffectCastTime" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ClickEffectCastTime" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CharmFile" Type="System.String" DbType="VarChar(32) NOT NULL" CanBeNull="false" />
+      <Column Name="CharmFileID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Classes" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Color" Type="System.UInt32" DbType="BigInt" CanBeNull="true" />
+      <Column Name="CombatEffects" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="ExtraDmgSkill" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ExtraDmgAmt" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Price" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CRBonus" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="DRBonus" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="FRBonus" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="MRBonus" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="PRBonus" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="Damage" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="DamageShield" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="Deity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Delay" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="AugDistiller" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DotShielding" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ClickType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ClickLevelReq" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="ClickLevelMax" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="ElemDmgType" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="ElemDmgAmt" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="EnduranceBonus" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FactionAmt1" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FactionAmt2" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FactionAmt3" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FactionAmt4" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FactionMod1" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FactionMod2" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FactionMod3" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FactionMod4" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BookFileName" Storage="_BookName" Type="System.String" DbType="VarChar(32) NOT NULL" CanBeNull="false" />
+      <Column Name="FocusEffectSpellID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FVNoDrop" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="HastePct" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="HPBonus" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Regen" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Icon" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IDFile" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="ItemClass" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="ItemType" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="LdonPrice" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="LdonTheme" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Ldonsold" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Light" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Lore" Type="System.String" DbType="VarChar(80) NOT NULL" CanBeNull="false" />
+      <Column Name="LoreGroup" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IsMagic" Storage="_Magic" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="ManaBonus" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ManaRegen" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="EnduranceRegen" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Material" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="MaxCharges" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="NoDrop" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="NoRent" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="HasPendingLoreFlag" Storage="_PendingLoreFlag" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="ProcRate" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Races" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Range" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="RecLevel" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="RecSkill" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ReqLevel" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SellRate" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="Shielding" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Size" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="skillmodtype" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="skillmodvalue" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="slots" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="clickeffect" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="spellshield" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="strikethrough" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="stunresist" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IsSummoned" Storage="_summonedflag" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="tradeskills" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="favor" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="weight" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Benefit" Storage="_benefitflag" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="booktype" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="recastdelay" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="recasttype" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="guildfavor" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IsAttuneable" Storage="_attuneable" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="nopet" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="pointtype" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="potionbelt" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="potionbeltslots" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="stacksize" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="notransfer" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="stackable" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="proceffect" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="proctype" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="proclevel2" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="proclevel" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="worneffect" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="worntype" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="wornlevel2" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="wornlevel" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="focustype" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="focuslevel2" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="focuslevel" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="scrolleffect" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="scrolltype" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="scrolllevel2" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="scrolllevel" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="lorefile" Type="System.String" DbType="VarChar(32) NOT NULL" CanBeNull="false" />
+      <Column Name="svcorruption" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="augslot1unk2" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="augslot2unk2" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="augslot3unk2" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="augslot4unk2" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="augslot5unk2" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="questitemflag" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="clickunk5" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="clickunk6" Type="System.String" DbType="VarChar(32) NOT NULL" CanBeNull="false" />
+      <Column Name="clickunk7" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="procunk1" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="procunk2" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="procunk3" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="procunk4" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="procunk6" Type="System.String" DbType="VarChar(32) NOT NULL" CanBeNull="false" />
+      <Column Name="procunk7" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="wornunk1" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="wornunk2" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="wornunk3" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="wornunk4" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="wornunk5" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="wornunk6" Type="System.String" DbType="VarChar(32) NOT NULL" CanBeNull="false" />
+      <Column Name="wornunk7" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="focusunk1" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="focusunk2" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="focusunk3" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="focusunk4" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="focusunk5" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="focusunk6" Type="System.String" DbType="VarChar(32) NOT NULL" CanBeNull="false" />
+      <Column Name="focusunk7" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="scrollunk1" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="scrollunk2" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="scrollunk3" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="scrollunk4" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="scrollunk5" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="scrollunk6" Type="System.String" DbType="VarChar(32) NOT NULL" CanBeNull="false" />
+      <Column Name="scrollunk7" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="purity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="evolvinglevel" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Item_InventoryItem" Member="InventoryItems" ThisKey="ItemID" OtherKey="ItemID" Type="InventoryItem" />
+      <Association Name="Item_StartingItem" Member="StartingItems" ThisKey="ItemID" OtherKey="ItemID" Type="StartingItem" />
+      <Association Name="Item_LootDrop" Member="LootDrops" ThisKey="ItemID" OtherKey="ItemID" Type="LootDrop" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Inventory" Member="InventoryItems" AccessModifier="Internal">
+    <Type Name="InventoryItem" AccessModifier="Internal">
+      <Column Name="InventoryID" Member="InventoryItemID" Storage="_InventoryID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CharacterID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SlotID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ItemID" Type="System.UInt32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Charges" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="Color" Type="System.UInt32" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="AugSlot1" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AugSlot2" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AugSlot3" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AugSlot4" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AugSlot5" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Character_InventoryItem" Member="Character" ThisKey="CharacterID" OtherKey="CharacterID" Type="Character" IsForeignKey="true" />
+      <Association Name="Item_InventoryItem" Member="Item" ThisKey="ItemID" OtherKey="ItemID" Type="Item" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.StartingItems" Member="StartingItems" AccessModifier="Internal">
+    <Type Name="StartingItem" AccessModifier="Internal">
+      <Column Name="StartingItemID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Race" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="Class" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="DeityID" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="ZoneID" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="ItemID" Type="System.UInt32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ItemCharges" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="GM" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Slot" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Association Name="Item_StartingItem" Member="Item" ThisKey="ItemID" OtherKey="ItemID" Type="Item" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Loot" Member="Loots" AccessModifier="Internal">
+    <Type Name="Loot" AccessModifier="Internal">
+      <Column Name="LootID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="MinCash" Type="System.UInt32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="MaxCash" Type="System.UInt32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Loot_Npc" Member="Npcs" ThisKey="LootID" OtherKey="LootId" Type="Npc" />
+      <Association Name="Loot_LootEntry" Member="LootEntries" ThisKey="LootID" OtherKey="LootID" Type="LootEntry" />
+    </Type>
+  </Table>
+  <Table Name="dbo.LootDrops" Member="LootDrops" AccessModifier="Internal">
+    <Type Name="LootDrop" AccessModifier="Internal">
+      <Column Name="LootDropID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ItemID" Type="System.UInt32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ItemCharges" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Equipable" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Probability" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Association Name="Item_LootDrop" Member="Item" ThisKey="ItemID" OtherKey="ItemID" Type="Item" IsForeignKey="true" />
+      <Association Name="LootEntry_LootDrop" Member="LootEntry" ThisKey="LootDropID" OtherKey="LootDropID" Type="LootEntry" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.LootEntries" Member="LootEntries" AccessModifier="Internal">
+    <Type Name="LootEntry" AccessModifier="Internal">
+      <Column Name="LootID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="LootDropID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="MaxDrops" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Probability" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Association Name="LootEntry_LootDrop" Member="LootDrops" ThisKey="LootDropID" OtherKey="LootDropID" Type="LootDrop" />
+      <Association Name="Loot_LootEntry" Member="Loot" ThisKey="LootID" OtherKey="LootID" Type="Loot" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Books" Member="Books">
+    <Type Name="Book">
+      <Column Name="Name" Type="System.String" DbType="VarChar(30) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="BookText" Type="System.String" DbType="Text NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SkillCaps" Member="SkillCaps" AccessModifier="Internal">
+    <Type Name="SkillCap" AccessModifier="Internal">
+      <Column Name="SkillCapID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="SkillID" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Class" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Level]" Member="Level" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Cap" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ServerConfig" Member="ServerConfigs" AccessModifier="Internal">
+    <Type Name="ServerConfig" AccessModifier="Internal">
+      <Column Name="LongName" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="ShortName" Type="System.String" DbType="VarChar(32) NOT NULL" CanBeNull="false" />
+      <Column Name="NewUserDefaultStatus" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="Expansions" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="PVP" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="StartZone" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="StartingPlat" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="StartingGold" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="GroupXPBonus" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="MOTD" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="ZoneAddress" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="ZoneLocalAddress" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="ZonePortLow" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="ZonePortHigh" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="ChatHost" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="ChatPort" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="MailHost" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="MailPort" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="InitNumZoneServers" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="AutosaveIntervalSec" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BaseHitChance" Type="System.Single" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="NPCBonusHitChance" Type="System.Single" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="HitFallOffMinor" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="HitFallOffModerate" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="HitFallOffMajor" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="HitBonusPerLevel" Type="System.Single" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="XPModifier" Type="System.Single" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="LevelCap" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="PCRegenMultiplier" Type="System.Single" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="XPLossModifier" Type="System.Single" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="LevelDeathDoesXPLoss" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="LevelDeathLeavesItems" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Spells" Member="Spells" AccessModifier="Internal">
+    <Type Name="Spell">
+      <Column Name="SpellId" Member="SpellID" Storage="_SpellId" Type="System.UInt16" DbType="SmallInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="SpellName" Type="System.String" DbType="VarChar(46) NOT NULL" CanBeNull="false" />
+      <Column Name="TeleportZone" Type="System.String" DbType="VarChar(32)" CanBeNull="true" />
+      <Column Name="MsgYouCast" Type="System.String" DbType="VarChar(64)" CanBeNull="true" />
+      <Column Name="MsgOtherCast" Type="System.String" DbType="VarChar(64)" CanBeNull="true" />
+      <Column Name="MsgCastOnYou" Type="System.String" DbType="VarChar(64)" CanBeNull="true" />
+      <Column Name="MsgCastOnOther" Type="System.String" DbType="VarChar(64)" CanBeNull="true" />
+      <Column Name="MsgSpellFades" Type="System.String" DbType="VarChar(64)" CanBeNull="true" />
+      <Column Name="Range" Type="System.Single" DbType="Float" CanBeNull="true" />
+      <Column Name="AOERange" Type="System.Single" DbType="Float" CanBeNull="true" />
+      <Column Name="PushBack" Type="System.Single" DbType="Float" CanBeNull="true" />
+      <Column Name="PushUp" Type="System.Single" DbType="Float" CanBeNull="true" />
+      <Column Name="CastTime" Type="System.UInt32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="RecoveryTime" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RecastTime" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BuffDurationFormula" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BuffDuration" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AEDuration" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Mana" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="EffectBaseValue1" AccessModifier="Private" Type="System.Single" DbType="Float" CanBeNull="true" />
+      <Column Name="EffectBaseValue2" AccessModifier="Private" Type="System.Single" DbType="Float" CanBeNull="true" />
+      <Column Name="EffectBaseValue3" AccessModifier="Private" Type="System.Single" DbType="Float" CanBeNull="true" />
+      <Column Name="EffectBaseValue4" AccessModifier="Private" Type="System.Single" DbType="Float" CanBeNull="true" />
+      <Column Name="EffectBaseValue5" AccessModifier="Private" Type="System.Single" DbType="Float" CanBeNull="true" />
+      <Column Name="EffectBaseValue6" AccessModifier="Private" Type="System.Single" DbType="Float" CanBeNull="true" />
+      <Column Name="EffectBaseValue7" AccessModifier="Private" Type="System.Single" DbType="Float" CanBeNull="true" />
+      <Column Name="EffectBaseValue8" AccessModifier="Private" Type="System.Single" DbType="Float" CanBeNull="true" />
+      <Column Name="EffectBaseValue9" AccessModifier="Private" Type="System.Single" DbType="Float" CanBeNull="true" />
+      <Column Name="EffectBaseValue10" AccessModifier="Private" Type="System.Single" DbType="Float" CanBeNull="true" />
+      <Column Name="EffectBaseValue11" AccessModifier="Private" Type="System.Single" DbType="Float" CanBeNull="true" />
+      <Column Name="EffectBaseValue12" AccessModifier="Private" Type="System.Single" DbType="Float" CanBeNull="true" />
+      <Column Name="EffectLimitValue1" AccessModifier="Private" Type="System.Single" DbType="Float" CanBeNull="true" />
+      <Column Name="EffectLimitValue2" AccessModifier="Private" Type="System.Single" DbType="Float" CanBeNull="true" />
+      <Column Name="EffectLimitValue3" AccessModifier="Private" Type="System.Single" DbType="Float" CanBeNull="true" />
+      <Column Name="EffectLimitValue4" AccessModifier="Private" Type="System.Single" DbType="Float" CanBeNull="true" />
+      <Column Name="EffectLimitValue5" AccessModifier="Private" Type="System.Single" DbType="Float" CanBeNull="true" />
+      <Column Name="EffectLimitValue6" AccessModifier="Private" Type="System.Single" DbType="Float" CanBeNull="true" />
+      <Column Name="EffectLimitValue7" AccessModifier="Private" Type="System.Single" DbType="Float" CanBeNull="true" />
+      <Column Name="EffectLimitValue8" AccessModifier="Private" Type="System.Single" DbType="Float" CanBeNull="true" />
+      <Column Name="EffectLimitValue9" AccessModifier="Private" Type="System.Single" DbType="Float" CanBeNull="true" />
+      <Column Name="EffectLimitValue10" AccessModifier="Private" Type="System.Single" DbType="Float" CanBeNull="true" />
+      <Column Name="EffectLimitValue11" AccessModifier="Private" Type="System.Single" DbType="Float" CanBeNull="true" />
+      <Column Name="EffectLimitValue12" AccessModifier="Private" Type="System.Single" DbType="Float" CanBeNull="true" />
+      <Column Name="EffectMaxValue1" AccessModifier="Private" Type="System.Single" DbType="Float" CanBeNull="true" />
+      <Column Name="EffectMaxValue2" AccessModifier="Private" Type="System.Single" DbType="Float" CanBeNull="true" />
+      <Column Name="EffectMaxValue3" AccessModifier="Private" Type="System.Single" DbType="Float" CanBeNull="true" />
+      <Column Name="EffectMaxValue4" AccessModifier="Private" Type="System.Single" DbType="Float" CanBeNull="true" />
+      <Column Name="EffectMaxValue5" AccessModifier="Private" Type="System.Single" DbType="Float" CanBeNull="true" />
+      <Column Name="EffectMaxValue6" AccessModifier="Private" Type="System.Single" DbType="Float" CanBeNull="true" />
+      <Column Name="EffectMaxValue7" AccessModifier="Private" Type="System.Single" DbType="Float" CanBeNull="true" />
+      <Column Name="EffectMaxValue8" AccessModifier="Private" Type="System.Single" DbType="Float" CanBeNull="true" />
+      <Column Name="EffectMaxValue9" AccessModifier="Private" Type="System.Single" DbType="Float" CanBeNull="true" />
+      <Column Name="EffectMaxValue10" AccessModifier="Private" Type="System.Single" DbType="Float" CanBeNull="true" />
+      <Column Name="EffectMaxValue11" AccessModifier="Private" Type="System.Single" DbType="Float" CanBeNull="true" />
+      <Column Name="EffectMaxValue12" AccessModifier="Private" Type="System.Single" DbType="Float" CanBeNull="true" />
+      <Column Name="OldSpellIcon" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="OldMemIcon" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="Reagent1" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Reagent2" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Reagent3" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Reagent4" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ReagentAmount1" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ReagentAmount2" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ReagentAmount3" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ReagentAmount4" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="NoExpendReagent1" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="NoExpendReagent2" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="NoExpendReagent3" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="NoExpendReagent4" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SpellValueFormula1" AccessModifier="Private" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="SpellValueFormula2" AccessModifier="Private" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="SpellValueFormula3" AccessModifier="Private" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="SpellValueFormula4" AccessModifier="Private" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="SpellValueFormula5" AccessModifier="Private" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="SpellValueFormula6" AccessModifier="Private" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="SpellValueFormula7" AccessModifier="Private" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="SpellValueFormula8" AccessModifier="Private" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="SpellValueFormula9" AccessModifier="Private" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="SpellValueFormula10" AccessModifier="Private" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="SpellValueFormula11" AccessModifier="Private" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="SpellValueFormula12" AccessModifier="Private" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="LightType" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="GoodEffect" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="Activated" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ResistType" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="EffectId1" AccessModifier="Private" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="EffectId2" AccessModifier="Private" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="EffectId3" AccessModifier="Private" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="EffectId4" AccessModifier="Private" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="EffectId5" AccessModifier="Private" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="EffectId6" AccessModifier="Private" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="EffectId7" AccessModifier="Private" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="EffectId8" AccessModifier="Private" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="EffectId9" AccessModifier="Private" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="EffectId10" AccessModifier="Private" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="EffectId11" AccessModifier="Private" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="EffectId12" AccessModifier="Private" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="TargetType" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="BaseFizzle" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Skill" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="ZoneType" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="EnvironmentType" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="TimeOfDay" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="WarriorReqLevel" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="ClericReqLevel" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="PaladinReqLevel" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="RangerReqLevel" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="ShadowknightReqLevel" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="DruidReqLevel" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="MonkReqLevel" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="BardReqLevel" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="RogueReqLevel" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="ShamanReqLevel" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="NecromancerReqLevel" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="WizardReqLevel" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="MagicianReqLevel" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="EnchanterReqLevel" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="BeastlordReqLevel" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="BeserkerReqLevel" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="CastingAnimation" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="TargetAnimation" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="TravelType" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SpellAffectIndex" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="BertoxRestrict" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="BrellRestrict" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="CazicRestrict" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="ErollisiRestrict" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="BristlebaneRestrict" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="InnorukRestrict" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="KaranaRestrict" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="MithanielRestrict" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="PrexusRestrict" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="QuelliousRestrict" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="RallosRestrict" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="RodcetRestrict" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="SolusekRestrict" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="TribunalRestrict" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="TunareRestrict" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="VeeshanRestrict" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="NewIcon" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="SpellAnimation" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="Uninterruptable" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="ResistDiff" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="DotStackingExempt" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Deletable" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RecourseLink" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="ShortBuffBox" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="DescriptionID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TypeDescriptionID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="EffectDescriptionID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BonusHate" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="EnduranceCost" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="EnduranceTimerIdx" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="HateAdded" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="EnduranceUpkeep" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="NumHits" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PVPResistBase" Type="System.Single" DbType="Float" CanBeNull="true" />
+      <Column Name="PVPResistCalc" Type="System.Single" DbType="Float" CanBeNull="true" />
+      <Column Name="PVPResistCap" Type="System.Single" DbType="Float" CanBeNull="true" />
+      <Column Name="SpellCategory" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CanBeMGB" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="NoDispell" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="NPCCategory" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="NPCUsefulness" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Spell_MemorizedSpell" Member="MemorizedSpells" ThisKey="SpellID" OtherKey="SpellID" Type="MemorizedSpell" />
+      <Association Name="Spell_ScribedSpell" Member="ScribedSpells" ThisKey="SpellID" OtherKey="SpellID" Type="ScribedSpell" />
+    </Type>
+  </Table>
+  <Table Name="dbo.MemorizedSpells" Member="MemorizedSpells">
+    <Type Name="MemorizedSpell">
+      <Column Name="MemorizedSpellsID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CharacterID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SpellID" Type="System.UInt16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="SlotID" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Association Name="Character_MemorizedSpell" Member="Character" AccessModifier="Internal" ThisKey="CharacterID" OtherKey="CharacterID" Type="Character" IsForeignKey="true" />
+      <Association Name="Spell_MemorizedSpell" Member="Spell" ThisKey="SpellID" OtherKey="SpellID" Type="Spell" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Spellbook" Member="ScribedSpells">
+    <Type Name="ScribedSpell">
+      <Column Name="SpellbookID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CharacterID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SpellID" Type="System.UInt16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="SlotID" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Association Name="Character_ScribedSpell" Member="Character" AccessModifier="Internal" ThisKey="CharacterID" OtherKey="CharacterID" Type="Character" IsForeignKey="true" />
+      <Association Name="Spell_ScribedSpell" Member="Spell" ThisKey="SpellID" OtherKey="SpellID" Type="Spell" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>
